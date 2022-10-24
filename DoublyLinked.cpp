@@ -4,13 +4,14 @@ int x;
 char c;
 void insert_end1();
 void insert_end2();
+void display3();
 struct list
 {
 	int id;
 	list *next = NULL;
 	list *previous = NULL;
 };
-list* disjunction(struct list *, struct list *);
+list* intersection(struct list *, struct list *);
 void display(struct list *);
 list *first1 = NULL;
 list *last1 = NULL;
@@ -23,7 +24,7 @@ int main()
 	do
 	{
 		cout<<"\nEnter 1 to insert in one list \nEnter 2 to insert in the second list \nEnter 3 to display first list \nEnter 4 to display second list \t";
-		cout<<"\nEnter 5 to compare both lists";
+		cout<<"\nEnter 5 to compare both lists" ;
 		cout<<"\n----------------------------------";
 		cout<<"\nThe number entered by user is \t";
 		cin>>x;
@@ -43,10 +44,9 @@ int main()
 				break;
 			case 5:
 				list *f;
-				f = disjunction(first1, first2);
+				f = intersection(first1, first2);
 				display(first3);
 				break;
-			
 			default:
 				cout<<"invalid";
 		}
@@ -72,6 +72,7 @@ void insert_end1()
 		current ->previous = last1;
 		last1 = current;
 	}
+	main();
 }
 void insert_end2()
 {
@@ -89,26 +90,41 @@ void insert_end2()
 		current ->previous = last2;
 		last2 = current;
 	}
+	main();
 }
-void display(struct list *n)
+void display(struct list *f)
 {
-	list *p = n;
+	list *p = f;
+	cout<<"\n----------------------------------";
 	while(p!=NULL)
 	{
 		cout<<"\n The id of the student is \t";
 		cout<<p->id;
 		p=p->next;
 	}
+	cout<<"\n----------------------------------";
 }
-
-list* disjunction(struct list *, struct list *)
+list* intersection(struct list *, struct list *)
 {
-	list *p;
-	p = first1;
+	/*
+	-------------MAIN LOGIC----------
+	1. Take 2 pointers
+		k will point the start of list1
+		p will point teh start of list2
+	2. firstly we compare the id of p with all nodes of k.
+			If id matches it is stored in new list and p is moved to its next.
+			else p is moved to its next
+	3. Loop is terminated when p of next is null that is it reaches the end of the list
+
+	
+	*/
 	list *k;
-	while(p !=last1 ->next )
+	k = first1;
+	list *p;
+	p = first2;
+	while(p !=last2 ->next )
 	{
-		k = first2;
+		k = first1;
 		int z = p->id;
 		while(k->id!=z && k->next!=NULL)
 		{
@@ -116,13 +132,9 @@ list* disjunction(struct list *, struct list *)
 		}
 		if(k->id==z)
 		{
-		p = p->next;		
-		}
-		else if(k->id!=p->id)
-		{
 			list *current3;
 			current3 = new list;
-			current3->id = p->id;
+			current3->id = k->id;
 			if(first3 ==NULL)
 			{
 				first3 = last3 = current3;
@@ -134,6 +146,10 @@ list* disjunction(struct list *, struct list *)
 				current3 ->next = NULL;
 				last3 = current3;
 			}
+			p = p->next;
+		}
+		else if(k->id!=p->id)
+		{
 			p = p->next;
 		}
 	}

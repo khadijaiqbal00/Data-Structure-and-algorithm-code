@@ -1,3 +1,5 @@
+// PROBLEM --->SEARCH KA MATHOD THEEK KARNA . CONSECUTIVE NODES KI CODITION DALNI
+
 #include<iostream>
 using namespace std;
 void insert_end();
@@ -100,11 +102,10 @@ void swapnodes(int first1, int second1)
 				3. s2 is at first and s1 is at last
 				4. s1 is not at first and s2 is not at last
 				5. s1 and s2 maybe both consecutive.
-				6. s2 is 2nd and y is at last
 	
 	
 	*/
-	list *x, *k;
+	list *x;
 	list *p;
 	p = first;
 	list *z;
@@ -121,7 +122,7 @@ void swapnodes(int first1, int second1)
 		list *s1 = search(first1);
 		if(s1->id!= first_node)
 		{
-			cout<<"ID 1 not found \t";
+			cout<<"ID 1 not found";
 		}
 		list *s2 = search(second1);
 		if(s2->id!= second_node)
@@ -144,16 +145,6 @@ void swapnodes(int first1, int second1)
 				first = z;
 				last = p;
 			}
-			else if(s1==first && s1->next==s2)
-			{
-				
-				list *k ;
-				k = s2->next;
-				s2->next  = s1;
-				s1->next = k;
-				first = s2;
-			}
-			
 			else if(s1->next==s2 )// both are consecutive
 			{
 				p = s2->next;
@@ -166,34 +157,6 @@ void swapnodes(int first1, int second1)
 				s2->next = s1;
 				s1->next = p;
 			}
-			else if(s1!=first && s2==last)
-			{
-				x = first;
-				while(x->next != s1)
-				{
-						x = x->next;
-				}
-				z = first;
-				while(z->next != s2)
-				{
-						z = z->next;
-				}
-				list *f = s1->next;
-				x->next = s2;
-				s2->next = f;
-				z->next = s1;
-				s1->next = NULL;
-				
-			}
-			else if(s1==first && s2==s1->next)
-			{
-				cout<<"hi";
-				list *k = s2->next;
-				s2->next  = s1;
-				s1->next = k;
-				first = s1;
-			}
-			
 			else if(s1->id == first->id &&  s2->id != last->id)// if s1 is first but s2 is not last
 			{
 				z = s2;
@@ -227,22 +190,14 @@ void swapnodes(int first1, int second1)
 				{
 					p = p->next;
 				}
-				k = first;
-				while(k->next !=s2)
-				{
-					k = k->next;
-				}
-				list *f;
-				f = s1->next;
 				x = s2->next;
-				
-				
 				p->next = s2;
-				s2->next = f;
-				k ->next = s1;
+				s2->next = s1;
 				s1->next = x;
 			}
 	    }
+	    
+		
 	}
 	
 }
